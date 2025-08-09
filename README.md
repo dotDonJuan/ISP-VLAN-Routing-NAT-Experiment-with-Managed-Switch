@@ -58,8 +58,76 @@ int vlan 20
 int vlan 92
   no shut
   exit
+
+ip dhcp pool vlan20-pool
+   network 10.20.0.0 255.255.224.0
+   default-router 10.20.0.1
+   exit
+ip dhcp excluded-address 10.20.0.1 10.20.0.10
+
+#Configure interface into access mode
+interface giga0/1
+   switchport access vlan 92
+   switchport mode access
+   exit
+interface giga0/2
+   no switchport
+   ip address 10.10.128.2 255.255.255.252
+   no shut
+   exit
+interface f0/1
+   switchport access vlan 92
+   switchport mode access
+   exit
+interface f0/2
+   switchport access vlan 20
+   switchport mode access
+   exit
 exit
 write memory
 
+#Configure Routing Protocol (EIGRP)
+conf t
+ip routing
+ip route 0.0.0.0 0.0.0.0 10.10.128.1 #next hop ip (Cisco Router's IP address)
+router eigrp 100
+   no auto-summary
+   passive-interface default
+   network 10.10.128.0 0.0.0.3
+   network 10.10.0.0 0.0.0.255
+   network 10.20.0.0 0.0.3.255
+   no passive-interface giga0/2
+   exit
+exit
+write memory
 </pre>
 
+### 🖧 MAIN:
+<pre>
+#Configuring Routing, NAT, ACL and IP Address on MAIN Router
+
+conf t
+interface giga0/0
+   ip address 192.168.0.211 255.255.255.0
+   no shut
+   ip nat outside
+   exit
+interface giga0/1
+   ip address 10.10.128.1 255.255.255.252
+   no shut
+   ip nat inside
+   exit
+ip route 0.0.0.0 0.0.0.0 giga0/0
+ip nat inside source list 100 interface giga0/0 overload
+access-list 100 permit ip 10.20.0.0 0.0.3.255 any
+#add to this access-list 100 those IP (VLAN) created if needed and also can deny
+
+router eigrp 100
+   no auto-summary
+   passive-interface default
+   network 10.10.128.0 0.0.0.3
+   no passive-interface giga0/1
+   exit
+exit
+write memory
+</pre>
