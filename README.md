@@ -18,8 +18,6 @@ Useful for network engineers, homelab enthusiasts, or anyone experimenting with 
 
 ## 📷 Network Diagram
 
-![Network Diagram](diagram/image.png)
-
 ## 🧰 Components Used
 
 - **Managed Switch** (Cisco)
