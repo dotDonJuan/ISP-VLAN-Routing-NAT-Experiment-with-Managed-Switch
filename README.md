@@ -132,9 +132,9 @@ exit
 write memory
 </pre>
 ---
-### I have configured the other L3 Switch into VLAN 92 as well and pool 192.168.0.0/24
+### Configured the other L3 Switch into VLAN 92 as well and pool 192.168.0.0/24
 ---
-## 🧪 Test Results
+## 🧪 Testing
 On Laptop1: IP: 10.20.0.11/24 GW: 10.20.0.1
 
 pinged IP: 192.168.0.246
