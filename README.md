@@ -117,7 +117,7 @@ interface giga0/1
    no shut
    ip nat inside
    exit
-ip route 0.0.0.0 0.0.0.0 giga0/0
+ip route 0.0.0.0 0.0.0.0 192.168.0.1
 ip nat inside source list 100 interface giga0/0 overload
 access-list 100 permit ip 10.20.0.0 0.0.3.255 any
 #add to this access-list 100 those IP (VLAN) created if needed and also can deny
