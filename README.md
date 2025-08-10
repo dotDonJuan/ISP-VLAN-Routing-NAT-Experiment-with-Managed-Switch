@@ -26,7 +26,7 @@ Useful for network engineers, homelab enthusiasts, or anyone experimenting with 
 - **Router** (Cisco and TP-Link) 
 - **ISP** providing internet on a specific VLAN tag (VLAN 92: 192.168.0.0/24)
 - Multiple internal VLANs
-- Application: Putty and Cisco Packet Tracer for configurations
+- Application: Putty and Cisco Packet Tracer 7.3.1.0362 for configurations
 
 ---
 
